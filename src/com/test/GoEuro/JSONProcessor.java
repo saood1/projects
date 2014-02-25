@@ -28,14 +28,17 @@ public class JSONProcessor{
 		try{
 			Logger.print("Parsing JSON response ...");
 			
+			//Check if the json object is null or its contents are null
 			if(jsonObject == null || jsonObject.isNullObject())
 				throw new JSONParserException(ResponseString.JSON_PARSING_ERROR);
 			
 			JSONArray results = jsonObject.getJSONArray(JSONKeys.RESULTS);
+			
+			//Check if the results JSON object is empty
 			if(results.isEmpty())
 				throw new CSVFileCreationFailureException(ResponseString.NO_CSV_FILE_CREATED);
 			
-			//Get a handle to the iterator object to loop through the remaining child elements
+			//Get a handle to the iterator object to loop through the child elements of results
 			Iterator<JSONObject> it = results.iterator();
 			while(it.hasNext()){
 				JSONObject next = it.next();
